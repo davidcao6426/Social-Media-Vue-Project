@@ -1,17 +1,14 @@
 <script setup lang="ts">
 import axios from 'axios'
 import{reactive, onMounted} from 'vue';
+import UserService from '@/services/UserService.js';
 
 const data = reactive({
-  newsdata:'',
+  newsdata: null,
 })
 
 axios.defaults.baseURL = 'http://localhost:8080'
-axios.get('/api/user/user',{
-  params: {
-    id: "176"
-  }
-})
+axios.get('/api/user/176')
     .then(function (response) {
       // handle success
       console.log("success");
@@ -35,7 +32,9 @@ axios.get('/api/user/user',{
     <h1>This is an about page</h1>
     <h1>{{ data.newsdata }}</h1>
     <h1>{{ data.newsdata.userId }}</h1>
+    <h1>{{ data.newsdata.username }}</h1>
     <h1>{{ data.newsdata.email }}</h1>
+    <h1>{{ data.newsdata.biography }}</h1>
   </div>
 </template>
 

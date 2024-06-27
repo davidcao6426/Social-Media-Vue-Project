@@ -31,11 +31,19 @@
     }).then((res)=>{
       console.log("success!");
       console.log(res.data);
-      sessionStorage.setItem("userId", formInput.userId)
-      router.push('/post');
+      if(res.data){
+        sessionStorage.setItem("userId", formInput.userId)
+        router.push('/posts');
+      }else{
+        alert("帳號密碼錯誤!");
+        router.push('/login');
+      }
+
     }).catch((err)=>{
       console.log("error");
       console.log(err);
+      alert("帳號密碼錯誤!");
+      router.push('/login');
     })
   }
 </script>

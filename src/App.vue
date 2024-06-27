@@ -21,9 +21,23 @@ import HelloWorld from './components/HelloWorld.vue'
 <!--        </nav>-->
       <!-- </div> -->
   <!-- </header> -->
+  <div class="container">
+    <RouterView />
+  </div>
 
-  <RouterView />
 </template>
+
+<!--<style scoped>-->
+<!--.container {-->
+<!--  text-align: center;-->
+<!--}-->
+<!--.text {-->
+<!--  position: relative;-->
+<!--  top: 50%;-->
+<!--  transform: translate(0, -50%);-->
+<!--}-->
+
+<!--</style>-->
 
 <!--<style scoped>-->
 <!--header {-->
