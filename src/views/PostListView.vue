@@ -8,12 +8,13 @@
         "作者", "文章"
     ],
     api_data: [
-      { postId:'', userId:'', content:''},
+      { postId:'', userId:'', title:''},
     ]
   })
 
   const formInput = reactive({
     userId: sessionStorage.getItem("userId"),
+    title:'',
     content:''
   })
 
@@ -39,6 +40,7 @@
   const postForm = function(){
     axios.post('http://localhost:8080/api/post',{
       userId: formInput.userId,
+      title: formInput.title,
       content: formInput.content
     }).then((res)=>{
       console.log("success!");
@@ -59,6 +61,8 @@
 <!--    <label>PostView</label>-->
     <form action="/post" method="post" autocomplete="on">
       <div>
+        <label for="title">標題：</label>
+        <input id="title" type="text" v-model="formInput.title"/>
         <label for="content">內文：</label>
         <input id="content" type="text" v-model="formInput.content"/>
         <button @click.prevent="postForm">發文</button>
@@ -74,7 +78,7 @@
       <td>{{ item.userId }} </td>
       <td>
         <a :href=" '/post/'+ item.postId">
-          {{ item.content }}
+          {{ item.title }}
         </a>
       </td>
     </tr>
