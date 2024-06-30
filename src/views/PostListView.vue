@@ -62,12 +62,13 @@
     <form action="/post" method="post" autocomplete="on">
       <div>
         <label for="title">標題：</label>
-        <input id="title" type="text" v-model="formInput.title"/>
-        <label for="content">內文：</label>
-        <input id="content" type="text" v-model="formInput.content"/>
-        <button @click.prevent="postForm">發文</button>
-
+        <input id="title" type="text" v-model="formInput.title" size="70" />
       </div>
+      <div>
+        <label for="content">內文：</label>
+        <textarea id="content" type="text" v-model="formInput.content" rows="7" cols="67"/>
+      </div>
+      <button @click.prevent="postForm">發文</button>
     </form>
   </div>
   <table class="postList">
@@ -77,7 +78,7 @@
     <tr v-for="item in data.api_data" :key="item.userId" class="form-item">
       <td>{{ item.userId }} </td>
       <td>
-        <a :href=" '/post/'+ item.postId">
+        <a :href=" '/post?postId='+ item.postId">
           {{ item.title }}
         </a>
       </td>
@@ -92,7 +93,10 @@
     margin-bottom: 1rem;
   }
   button {
-    margin-left: 1rem;
+    margin-bottom: 1rem;
+  }
+  label {
+    text-align: top;
   }
 
   .post {
