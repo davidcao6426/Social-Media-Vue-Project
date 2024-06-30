@@ -10,7 +10,7 @@
     // col_data : [
     //   "作者", "文章"
     // ],
-    api_data: { postId:'', userId:'', title:'', content: '', createAt: '', commentList: [
+    api_data: { postId:'', userId:'', title:'', content: '', createAt: '', comments: [
         { commentId:'', userId:'', postId:'', content:'', createAt: ''}
       ]}
   })
@@ -30,7 +30,7 @@
     })
 
   const comment = function(){
-
+    
   }
 </script>
 
@@ -52,7 +52,17 @@
       <button @click.prevent="comment">留言</button>
     </div>
     <div class="commentList">
-<!--      <button @click.prevent="comment">留言</button>-->
+      <div v-for="(item, index) in data.api_data.comments" :key="item.commentId" class="form-item">
+        <div>
+          <a>{{ item.userId }} </a>
+          <pre>{{ item.content }} </pre>
+        </div>
+        <div>
+          {{index+1}}樓
+          <span class="time">{{ item.createAt }} </span>
+        </div>
+
+      </div>
     </div>
   </div>
 
@@ -112,6 +122,14 @@
   }
 
   .commentList {
+    border-style:solid;
+  }
+
+  .time {
+    text-align: right;
+  }
+
+  .form-item {
     border-style:solid;
   }
 
