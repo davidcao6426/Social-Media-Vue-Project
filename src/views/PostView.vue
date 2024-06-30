@@ -15,6 +15,12 @@
       ]}
   })
 
+  const formInput = reactive({
+    userId: sessionStorage.getItem("userId"),
+    postId: postId,
+    content:''
+  })
+
   axios.get('http://localhost:8080/api/post/'+postId)
     .then((res)=>{
       console.log("success!");
@@ -30,11 +36,25 @@
     })
 
   const comment = function(){
-    
+    axios.post('http://localhost:8080/api/comment',{
+      userId: formInput.userId,
+      postId: formInput.postId,
+      content: formInput.content
+    }).then((res)=>{
+      console.log("success!");
+      console.log(res.data);
+      if(res.data){
+        location.reload();
+      }
+    }).catch((err)=>{
+      console.log("error");
+      console.log(err);
+    })
   }
 </script>
 
 <template>
+  <a href="/posts">回到上一頁</a>
   <div class="content_container">
     <div class="title">
       <h1>{{ data.api_data.title }}</h1>
@@ -48,9 +68,6 @@
         <pre>{{ data.api_data.content }}</pre>
       </div>
     </div>
-    <div class="actionBtn">
-      <button @click.prevent="comment">留言</button>
-    </div>
     <div class="commentList">
       <div v-for="(item, index) in data.api_data.comments" :key="item.commentId" class="form-item">
         <div>
@@ -61,7 +78,10 @@
           {{index+1}}樓
           <span class="time">{{ item.createAt }} </span>
         </div>
-
+      </div>
+      <div class="actionBtn">
+        <textarea id="content" type="text" v-model="formInput.content" rows="1" cols="100"/>
+        <button @click.prevent="comment">留言</button>
       </div>
     </div>
   </div>
@@ -83,6 +103,10 @@
 
 <style scoped>
   div {
+    margin: 1rem;
+  }
+
+  button {
     margin: 1rem;
   }
 
